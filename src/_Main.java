@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.lang.reflect.Array;
 
 import com.google.gson.JsonArray;
@@ -18,6 +19,7 @@ public class _Main extends javax.swing.JFrame {
 	JsonArray data_jbxx;
 	JsonArray data_stu;
 	JsonArray data_exam;
+	JsonArray data_train;
 	_POST post;
 	JsonObject json;
 	String line;
@@ -67,12 +69,20 @@ public class _Main extends javax.swing.JFrame {
 		json = data_exam.get(5).getAsJsonObject();
 		jLabel27.setText(json.get("fintAppointmentLesson").toString() + "/"
 				+ json.get("fintSumLesson").toString());
-
-		post = new _POST("http://111.204.39.58:8080/DfssAjax.aspx",
-				"AjaxMethod=wsyc", main._cookie, 0);
+		//
+		post = new _POST("http://111.204.39.58:8080/Ajax/StuHdl.ashx",
+				"loginType=2&method=stu&stuid=" + main._userid
+						+ "&sfznum=&carid=", main._cookie, 0);
 		post.run();
 		System.out.println(post._GetStatus());
-
+		String[] dataarr = post._GetStatus().split("\\|\\|\\|\\|");
+		_JSON json_stu = new _JSON(dataarr[0]);
+		data_train = json_stu._GetJsonData();
+		main._bmnum = data_train.get(0).getAsJsonObject()
+				.get("fchrRegistrationID").toString().split("\"")[1];
+		main._trainpriceid = data_train.get(0).getAsJsonObject()
+				.get("fchrTrainPriceID").toString().split("\"")[1];
+		System.out.println(main._bmnum);
 	}
 
 	// GEN-BEGIN:initComponents
@@ -161,6 +171,8 @@ public class _Main extends javax.swing.JFrame {
 		jCheckBox35 = new javax.swing.JCheckBox();
 		jButton1 = new javax.swing.JButton();
 		jButton2 = new javax.swing.JButton();
+		jComboBox1 = new javax.swing.JComboBox();
+		jTextField1 = new javax.swing.JTextField();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("gisman");
@@ -736,6 +748,12 @@ public class _Main extends javax.swing.JFrame {
 			}
 		});
 
+		jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] {
+				"散段", "模拟机", "综合训练" }));
+		jComboBox1.setName("null");
+
+		jTextField1.setText("jTextField1");
+
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(
 				jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
@@ -754,42 +772,42 @@ public class _Main extends javax.swing.JFrame {
 														.addComponent(
 																jLabel30,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																45,
+																38,
 																Short.MAX_VALUE)
 														.addComponent(
 																jLabel36,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																45,
+																38,
 																Short.MAX_VALUE)
 														.addComponent(
 																jLabel37,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																45,
+																38,
 																Short.MAX_VALUE)
 														.addComponent(
 																jLabel38,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																45,
+																38,
 																Short.MAX_VALUE)
 														.addComponent(
 																jLabel39,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																45,
+																38,
 																Short.MAX_VALUE)
 														.addComponent(
 																jLabel40,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																45,
+																38,
 																Short.MAX_VALUE)
 														.addComponent(
 																jLabel41,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																45,
+																38,
 																Short.MAX_VALUE)
 														.addComponent(
 																jLabel42,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																45,
+																38,
 																Short.MAX_VALUE))
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -800,42 +818,42 @@ public class _Main extends javax.swing.JFrame {
 														.addComponent(
 																jLabel31,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																52,
+																47,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox6,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																52,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox11,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																52,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox16,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																52,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox21,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																52,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox26,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																52,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox31,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																52,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox1,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																52,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE))
 										.addPreferredGap(
 												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -849,7 +867,7 @@ public class _Main extends javax.swing.JFrame {
 																		.addComponent(
 																				jLabel32,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				45,
+																				44,
 																				Short.MAX_VALUE)
 																		.addGap(4,
 																				4,
@@ -860,7 +878,7 @@ public class _Main extends javax.swing.JFrame {
 																		.addComponent(
 																				jCheckBox2,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				48,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE)
 																		.addGap(1,
 																				1,
@@ -871,7 +889,7 @@ public class _Main extends javax.swing.JFrame {
 																		.addComponent(
 																				jCheckBox7,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				48,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE)
 																		.addGap(1,
 																				1,
@@ -879,27 +897,27 @@ public class _Main extends javax.swing.JFrame {
 														.addComponent(
 																jCheckBox12,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																49,
+																48,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox17,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																49,
+																48,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox22,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																49,
+																48,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox27,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																49,
+																48,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox32,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																49,
+																48,
 																Short.MAX_VALUE))
 										.addGap(3, 3, 3)
 										.addGroup(
@@ -912,7 +930,7 @@ public class _Main extends javax.swing.JFrame {
 																		.addComponent(
 																				jLabel33,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				47,
+																				46,
 																				Short.MAX_VALUE)
 																		.addGap(1,
 																				1,
@@ -923,7 +941,7 @@ public class _Main extends javax.swing.JFrame {
 																		.addComponent(
 																				jCheckBox3,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				48,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE)
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED))
@@ -933,34 +951,34 @@ public class _Main extends javax.swing.JFrame {
 																		.addComponent(
 																				jCheckBox8,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				48,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE)
 																		.addPreferredGap(
 																				javax.swing.LayoutStyle.ComponentPlacement.RELATED))
 														.addComponent(
 																jCheckBox13,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																48,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox18,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																48,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox23,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																48,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox28,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																48,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox33,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																48,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
 																Short.MAX_VALUE))
 										.addGap(6, 6, 6)
 										.addGroup(
@@ -973,7 +991,7 @@ public class _Main extends javax.swing.JFrame {
 																		.addComponent(
 																				jLabel34,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				45,
+																				44,
 																				Short.MAX_VALUE)
 																		.addGap(5,
 																				5,
@@ -984,7 +1002,7 @@ public class _Main extends javax.swing.JFrame {
 																		.addComponent(
 																				jCheckBox4,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				48,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE)
 																		.addGap(2,
 																				2,
@@ -995,7 +1013,7 @@ public class _Main extends javax.swing.JFrame {
 																		.addComponent(
 																				jCheckBox9,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				48,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE)
 																		.addGap(2,
 																				2,
@@ -1003,27 +1021,27 @@ public class _Main extends javax.swing.JFrame {
 														.addComponent(
 																jCheckBox14,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																50,
+																49,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox19,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																50,
+																49,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox24,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																50,
+																49,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox29,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																50,
+																49,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox34,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																50,
+																49,
 																Short.MAX_VALUE))
 										.addGap(2, 2, 2)
 										.addGroup(
@@ -1033,37 +1051,37 @@ public class _Main extends javax.swing.JFrame {
 														.addComponent(
 																jLabel35,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																57,
+																56,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox5,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																57,
+																56,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox10,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																57,
+																56,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox15,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																57,
+																56,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox20,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																57,
+																56,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox25,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																57,
+																56,
 																Short.MAX_VALUE)
 														.addComponent(
 																jCheckBox30,
 																javax.swing.GroupLayout.DEFAULT_SIZE,
-																57,
+																56,
 																Short.MAX_VALUE)
 														.addGroup(
 																jPanel1Layout
@@ -1071,31 +1089,43 @@ public class _Main extends javax.swing.JFrame {
 																		.addComponent(
 																				jCheckBox35,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				48,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE)
 																		.addGap(9,
 																				9,
 																				9)))
+										.addPreferredGap(
+												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 										.addGroup(
 												jPanel1Layout
 														.createParallelGroup(
 																javax.swing.GroupLayout.Alignment.LEADING)
 														.addGroup(
 																jPanel1Layout
-																		.createSequentialGroup()
-																		.addGap(0,
+																		.createParallelGroup(
+																				javax.swing.GroupLayout.Alignment.LEADING,
+																				false)
+																		.addComponent(
+																				jButton2,
 																				0,
-																				0)
+																				0,
+																				Short.MAX_VALUE)
 																		.addComponent(
-																				jButton1))
-														.addGroup(
-																jPanel1Layout
-																		.createSequentialGroup()
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																				jButton1,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
+																				Short.MAX_VALUE)
 																		.addComponent(
-																				jButton2)))
-										.addGap(23, 23, 23)));
+																				jComboBox1,
+																				0,
+																				66,
+																				Short.MAX_VALUE))
+														.addComponent(
+																jTextField1,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addContainerGap(53, Short.MAX_VALUE)));
 		jPanel1Layout
 				.setVerticalGroup(jPanel1Layout
 						.createParallelGroup(
@@ -1108,284 +1138,310 @@ public class _Main extends javax.swing.JFrame {
 												jPanel1Layout
 														.createParallelGroup(
 																javax.swing.GroupLayout.Alignment.CENTER)
-														.addComponent(jLabel30)
-														.addComponent(jLabel31)
-														.addComponent(jLabel32)
-														.addComponent(jLabel33)
+														.addComponent(
+																jComboBox1,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(jLabel35)
 														.addComponent(jLabel34)
-														.addComponent(
-																jLabel35,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE))
-										.addGap(8, 8, 8)
+														.addComponent(jLabel33)
+														.addComponent(jLabel32)
+														.addComponent(jLabel31)
+														.addComponent(jLabel30))
 										.addGroup(
 												jPanel1Layout
 														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.CENTER)
+																javax.swing.GroupLayout.Alignment.LEADING)
 														.addGroup(
 																jPanel1Layout
 																		.createSequentialGroup()
-																		.addGap(2,
-																				2,
-																				2)
-																		.addComponent(
-																				jCheckBox1,
-																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				Short.MAX_VALUE))
-														.addComponent(
-																jCheckBox2,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																27,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox3,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																27,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox4,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																27,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox5,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																27,
-																Short.MAX_VALUE)
+																		.addGap(8,
+																				8,
+																				8)
+																		.addGroup(
+																				jPanel1Layout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.CENTER)
+																						.addGroup(
+																								jPanel1Layout
+																										.createSequentialGroup()
+																										.addGap(2,
+																												2,
+																												2)
+																										.addComponent(
+																												jCheckBox1,
+																												javax.swing.GroupLayout.DEFAULT_SIZE,
+																												javax.swing.GroupLayout.DEFAULT_SIZE,
+																												Short.MAX_VALUE))
+																						.addComponent(
+																								jCheckBox2,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								27,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox3,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								27,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox4,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								27,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox5,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								27,
+																								Short.MAX_VALUE)
+																						.addGroup(
+																								jPanel1Layout
+																										.createSequentialGroup()
+																										.addGap(1,
+																												1,
+																												1)
+																										.addComponent(
+																												jLabel36,
+																												javax.swing.GroupLayout.DEFAULT_SIZE,
+																												26,
+																												Short.MAX_VALUE)))
+																		.addGap(13,
+																				13,
+																				13)
+																		.addGroup(
+																				jPanel1Layout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.CENTER)
+																						.addComponent(
+																								jCheckBox6,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox7,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox8,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox9,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox10,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jLabel37,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								25,
+																								Short.MAX_VALUE))
+																		.addGap(8,
+																				8,
+																				8)
+																		.addGroup(
+																				jPanel1Layout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.CENTER)
+																						.addComponent(
+																								jCheckBox15,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox14,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox13,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox12,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox11,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jLabel38,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								25,
+																								Short.MAX_VALUE))
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																		.addGroup(
+																				jPanel1Layout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.CENTER)
+																						.addComponent(
+																								jLabel39,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								25,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox16,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox17,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox18,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox19,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox20,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE))
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																		.addGroup(
+																				jPanel1Layout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.CENTER)
+																						.addComponent(
+																								jCheckBox24,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox23,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox22,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox21,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jLabel40,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								25,
+																								Short.MAX_VALUE))
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																		.addGroup(
+																				jPanel1Layout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.CENTER)
+																						.addComponent(
+																								jCheckBox30,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox29,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox28,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox27,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox26,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jLabel41,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								25,
+																								Short.MAX_VALUE))
+																		.addGap(8,
+																				8,
+																				8)
+																		.addGroup(
+																				jPanel1Layout
+																						.createParallelGroup(
+																								javax.swing.GroupLayout.Alignment.CENTER)
+																						.addComponent(
+																								jLabel42,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								25,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox31,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox32,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox33,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox34,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE)
+																						.addComponent(
+																								jCheckBox35,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								javax.swing.GroupLayout.DEFAULT_SIZE,
+																								Short.MAX_VALUE))
+																		.addGap(55,
+																				55,
+																				55))
 														.addGroup(
 																jPanel1Layout
 																		.createSequentialGroup()
-																		.addGap(1,
-																				1,
-																				1)
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 																		.addComponent(
-																				jLabel36,
-																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				26,
-																				Short.MAX_VALUE)))
-										.addGap(13, 13, 13)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.CENTER)
-														.addComponent(
-																jCheckBox6,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox7,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox8,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox9,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox10,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jLabel37,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																25,
-																Short.MAX_VALUE))
-										.addGap(8, 8, 8)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.CENTER)
-														.addComponent(
-																jCheckBox15,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox14,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox13,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox12,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox11,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jLabel38,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																25,
-																Short.MAX_VALUE))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.CENTER)
-														.addComponent(
-																jLabel39,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																25,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox16,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox17,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox18,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox19,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox20,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.CENTER)
-														.addComponent(
-																jCheckBox24,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox23,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox22,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox21,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jLabel40,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																25,
-																Short.MAX_VALUE))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.CENTER)
-														.addComponent(
-																jCheckBox30,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox29,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox28,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox27,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox26,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jLabel41,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																25,
-																Short.MAX_VALUE))
-										.addGap(8, 8, 8)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.CENTER)
-														.addComponent(
-																jLabel42,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																25,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox31,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox32,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox33,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox34,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE)
-														.addComponent(
-																jCheckBox35,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																Short.MAX_VALUE))
-										.addGap(55, 55, 55))
-						.addGroup(
-								javax.swing.GroupLayout.Alignment.CENTER,
-								jPanel1Layout
-										.createSequentialGroup()
-										.addGap(14, 14, 14)
-										.addComponent(
-												jButton1,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												44, Short.MAX_VALUE)
-										.addGap(172, 172, 172)
-										.addComponent(jButton2)
-										.addGap(50, 50, 50))
+																				jButton1)
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+																		.addComponent(
+																				jButton2)
+																		.addGap(18,
+																				18,
+																				18)
+																		.addComponent(
+																				jTextField1,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				138,
+																				javax.swing.GroupLayout.PREFERRED_SIZE)
+																		.addContainerGap())))
 						.addGroup(
 								javax.swing.GroupLayout.Alignment.CENTER,
 								jPanel1Layout
@@ -1394,10 +1450,10 @@ public class _Main extends javax.swing.JFrame {
 										.addComponent(
 												jCheckBox25,
 												javax.swing.GroupLayout.DEFAULT_SIZE,
-												27, Short.MAX_VALUE)
+												33, Short.MAX_VALUE)
 										.addGap(118, 118, 118)));
 
-		jTabbedPane1.addTab("\u6563\u6bb5\u7ea6\u8f66", jPanel1);
+		jTabbedPane1.addTab("\u81ea\u52a8\u7ea6\u8f66", jPanel1);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
 				getContentPane());
@@ -1420,118 +1476,356 @@ public class _Main extends javax.swing.JFrame {
 		_GetDate();
 		for (int i = 0; i < count; i++) {
 			System.out.println(array[i]);
-			post = new _POST(
-					"http://111.204.39.58:8080/Ajax/StuHdl.ashx",
-					"loginType=2&method=yueche&stuid="
-							+ main._userid
-							+ "&bmnum=&lessonid=001&trainpriceid=&lesstypeid=&id=1"
-							+ "&ycmethod=03&cartypeid=01&carid=&trainsessionid=01&ReleaseCarID=&"
-							+ array[i], main._cookie, 0);
+			post = new _POST("http://111.204.39.58:8080/Ajax/StuHdl.ashx",
+					"loginType=2&method=yueche&stuid=" + main._userid
+							+ "&lesstypeid=02&id=1&bmnum=" + main._bmnum
+							+ "&trainpriceid=" + main._trainpriceid
+							+ "&ycmethod=03&cartypeid=01&carid=&ReleaseCarID=&"
+							+ array[i] + main._sessionid, main._cookie, 0);
 			post.run();
+			System.out.println("loginType=2&method=yueche&stuid="
+					+ main._userid + "&lesstypeid=02&id=1&bmnum=" + main._bmnum
+					+ "&trainpriceid=" + main._trainpriceid
+					+ "&ycmethod=03&cartypeid=01&carid=&ReleaseCarID=&"
+					+ array[i] + main._sessionid);
+			System.out.println(post._GetStatus());
+			if (post._GetStatus() == "success")
+				jTextField1
+						.setText(jTextField1.getText() + array[i] + "预约成功\n");
 		}
 	}
 
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// 约车信息
-		post = new _POST("http://111.204.39.58:8080/Ajax/StuHdl.ashx",
-				"loginType=2&method=Browser&stuid=" + main._userid
-						+ "&lessonid=001&cartypeid=01&carid=", main._cookie, 0);
+		if (jComboBox1.getSelectedItem().toString() == "散段") {
+			post = new _POST("http://111.204.39.58:8080/Ajax/StuHdl.ashx",
+					"loginType=2&method=Browser&stuid=" + main._userid
+							+ "&lessonid=001&cartypeid=01&carid=",
+					main._cookie, 0);
+			main._sessionid = "&lessionid=001";
+		} else if (jComboBox1.getSelectedItem().toString() == "模拟机") {
+			post = new _POST("http://111.204.39.58:8080/Ajax/StuHdl.ashx",
+					"loginType=2&method=Browser&stuid=" + main._userid
+							+ "&lessonid=006&cartypeid=01&carid=",
+					main._cookie, 0);
+			main._sessionid = "&lessionid=006";
+		} else if (jComboBox1.getSelectedItem().toString() == "综合训练") {
+			post = new _POST("http://111.204.39.58:8080/Ajax/StuHdl.ashx",
+					"loginType=2&method=Browser&stuid=" + main._userid
+							+ "&lessonid=007&cartypeid=01&carid=",
+					main._cookie, 0);
+			main._sessionid = "&lessionid=007";
+		}
 		post.run();
 		String[] dataarr = post._GetStatus().split("\\|\\|");
 		_JSON json_stu = new _JSON(dataarr[2]);
 		data_stu = json_stu._GetJsonData();
 		// System.out.println(data_stu.get(0).toString());
+		_GetSelectData();
+	}
+
+	private void _GetSelectData() {
 		json = data_stu.get(0).getAsJsonObject();
-		jCheckBox1
-				.setText(json.get("1").toString().split("/")[1].split("\"")[0]);
-		jCheckBox2
-				.setText(json.get("2").toString().split("/")[1].split("\"")[0]);
-		jCheckBox3
-				.setText(json.get("3").toString().split("/")[1].split("\"")[0]);
-		jCheckBox4
-				.setText(json.get("4").toString().split("/")[1].split("\"")[0]);
-		jCheckBox5
-				.setText(json.get("5").toString().split("/")[1].split("\"")[0]);
+		if (json.get("1").toString().indexOf("/") != -1) {
+			jCheckBox1.setForeground(Color.BLACK);
+			jCheckBox1.setText(json.get("1").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox1.setForeground(Color.RED);
+			jCheckBox1.setText(json.get("1").toString().split("\"")[1]);
+		}
+		if (json.get("2").toString().indexOf("/") != -1) {
+			jCheckBox2.setForeground(Color.BLACK);
+			jCheckBox2.setText(json.get("2").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox2.setForeground(Color.RED);
+			jCheckBox2.setText(json.get("2").toString().split("\"")[1]);
+		}
+		if (json.get("3").toString().indexOf("/") != -1) {
+			jCheckBox3.setForeground(Color.BLACK);
+			jCheckBox3.setText(json.get("3").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox3.setForeground(Color.RED);
+			jCheckBox3.setText(json.get("3").toString().split("\"")[1]);
+		}
+		if (json.get("4").toString().indexOf("/") != -1) {
+			jCheckBox4.setForeground(Color.BLACK);
+			jCheckBox4.setText(json.get("4").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox4.setForeground(Color.RED);
+			jCheckBox4.setText(json.get("4").toString().split("\"")[1]);
+		}
+		if (json.get("5").toString().indexOf("/") != -1) {
+			jCheckBox5.setForeground(Color.BLACK);
+			jCheckBox5.setText(json.get("5").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox5.setForeground(Color.RED);
+			jCheckBox5.setText(json.get("5").toString().split("\"")[1]);
+		}
 		jLabel36.setText(json.get("fchrdate").toString().split("\\(", 2)[0]
 				.split("\"")[1]);
 		// System.out.println(json.get("fchrdate").toString().split("-", 2)[1]);
 		json = data_stu.get(1).getAsJsonObject();
-		jCheckBox6
-				.setText(json.get("1").toString().split("/")[1].split("\"")[0]);
-		jCheckBox7
-				.setText(json.get("2").toString().split("/")[1].split("\"")[0]);
-		jCheckBox8
-				.setText(json.get("3").toString().split("/")[1].split("\"")[0]);
-		jCheckBox9
-				.setText(json.get("4").toString().split("/")[1].split("\"")[0]);
-		jCheckBox10
-				.setText(json.get("5").toString().split("/")[1].split("\"")[0]);
+		if (json.get("1").toString().indexOf("/") != -1) {
+			jCheckBox6.setForeground(Color.BLACK);
+			jCheckBox6.setText(json.get("1").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox6.setForeground(Color.RED);
+			jCheckBox6.setText(json.get("1").toString().split("\"")[1]);
+		}
+		if (json.get("2").toString().indexOf("/") != -1) {
+			jCheckBox7.setForeground(Color.BLACK);
+			jCheckBox7.setText(json.get("2").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox7.setForeground(Color.RED);
+			jCheckBox7.setText(json.get("2").toString().split("\"")[1]);
+		}
+		if (json.get("3").toString().indexOf("/") != -1) {
+			jCheckBox8.setForeground(Color.BLACK);
+			jCheckBox8.setText(json.get("3").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox8.setForeground(Color.RED);
+			jCheckBox8.setText(json.get("3").toString().split("\"")[1]);
+		}
+		if (json.get("4").toString().indexOf("/") != -1) {
+			jCheckBox9.setForeground(Color.BLACK);
+			jCheckBox9.setText(json.get("4").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox9.setForeground(Color.RED);
+			jCheckBox9.setText(json.get("4").toString().split("\"")[1]);
+		}
+		if (json.get("5").toString().indexOf("/") != -1) {
+			jCheckBox10.setForeground(Color.BLACK);
+			jCheckBox10.setText(json.get("5").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox10.setForeground(Color.RED);
+			jCheckBox10.setText(json.get("5").toString().split("\"")[1]);
+		}
 		jLabel37.setText(json.get("fchrdate").toString().split("\\(", 2)[0]
 				.split("\"")[1]);
 		json = data_stu.get(2).getAsJsonObject();
-		jCheckBox11
-				.setText(json.get("1").toString().split("/")[1].split("\"")[0]);
-		jCheckBox12
-				.setText(json.get("2").toString().split("/")[1].split("\"")[0]);
-		jCheckBox13
-				.setText(json.get("3").toString().split("/")[1].split("\"")[0]);
-		jCheckBox14
-				.setText(json.get("4").toString().split("/")[1].split("\"")[0]);
-		jCheckBox15
-				.setText(json.get("5").toString().split("/")[1].split("\"")[0]);
+		if (json.get("1").toString().indexOf("/") != -1) {
+			jCheckBox11.setForeground(Color.BLACK);
+			jCheckBox11.setText(json.get("1").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox11.setForeground(Color.RED);
+			jCheckBox11.setText(json.get("1").toString().split("\"")[1]);
+		}
+		if (json.get("2").toString().indexOf("/") != -1) {
+			jCheckBox12.setForeground(Color.BLACK);
+			jCheckBox12.setText(json.get("2").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox12.setForeground(Color.RED);
+			jCheckBox12.setText(json.get("2").toString().split("\"")[1]);
+		}
+		if (json.get("3").toString().indexOf("/") != -1) {
+			jCheckBox13.setForeground(Color.BLACK);
+			jCheckBox13.setText(json.get("3").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox13.setForeground(Color.RED);
+			jCheckBox13.setText(json.get("3").toString().split("\"")[1]);
+		}
+		if (json.get("4").toString().indexOf("/") != -1) {
+			jCheckBox14.setForeground(Color.BLACK);
+			jCheckBox14.setText(json.get("4").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox14.setForeground(Color.RED);
+			jCheckBox14.setText(json.get("4").toString().split("\"")[1]);
+		}
+		if (json.get("5").toString().indexOf("/") != -1) {
+			jCheckBox15.setForeground(Color.BLACK);
+			jCheckBox15.setText(json.get("5").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox15.setForeground(Color.RED);
+			jCheckBox15.setText(json.get("5").toString().split("\"")[1]);
+		}
 		jLabel38.setText(json.get("fchrdate").toString().split("\\(", 2)[0]
 				.split("\"")[1]);
 		json = data_stu.get(3).getAsJsonObject();
-		jCheckBox16
-				.setText(json.get("1").toString().split("/")[1].split("\"")[0]);
-		jCheckBox17
-				.setText(json.get("2").toString().split("/")[1].split("\"")[0]);
-		jCheckBox18
-				.setText(json.get("3").toString().split("/")[1].split("\"")[0]);
-		jCheckBox19
-				.setText(json.get("4").toString().split("/")[1].split("\"")[0]);
-		jCheckBox20
-				.setText(json.get("5").toString().split("/")[1].split("\"")[0]);
+		if (json.get("1").toString().indexOf("/") != -1) {
+			jCheckBox16.setForeground(Color.BLACK);
+			jCheckBox16.setText(json.get("1").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox16.setForeground(Color.RED);
+			jCheckBox16.setText(json.get("1").toString().split("\"")[1]);
+		}
+		if (json.get("2").toString().indexOf("/") != -1) {
+			jCheckBox17.setForeground(Color.BLACK);
+			jCheckBox17.setText(json.get("2").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox17.setForeground(Color.RED);
+			jCheckBox17.setText(json.get("2").toString().split("\"")[1]);
+		}
+		if (json.get("3").toString().indexOf("/") != -1) {
+			jCheckBox18.setForeground(Color.BLACK);
+			jCheckBox18.setText(json.get("3").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox18.setForeground(Color.RED);
+			jCheckBox18.setText(json.get("3").toString().split("\"")[1]);
+		}
+		if (json.get("4").toString().indexOf("/") != -1) {
+			jCheckBox19.setForeground(Color.BLACK);
+			jCheckBox19.setText(json.get("4").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox19.setForeground(Color.RED);
+			jCheckBox19.setText(json.get("4").toString().split("\"")[1]);
+		}
+		if (json.get("5").toString().indexOf("/") != -1) {
+			jCheckBox20.setForeground(Color.BLACK);
+			jCheckBox20.setText(json.get("5").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox20.setForeground(Color.RED);
+			jCheckBox20.setText(json.get("5").toString().split("\"")[1]);
+		}
 		jLabel39.setText(json.get("fchrdate").toString().split("\\(", 2)[0]
 				.split("\"")[1]);
 		json = data_stu.get(4).getAsJsonObject();
-		jCheckBox21
-				.setText(json.get("1").toString().split("/")[1].split("\"")[0]);
-		jCheckBox22
-				.setText(json.get("2").toString().split("/")[1].split("\"")[0]);
-		jCheckBox23
-				.setText(json.get("3").toString().split("/")[1].split("\"")[0]);
-		jCheckBox24
-				.setText(json.get("4").toString().split("/")[1].split("\"")[0]);
-		jCheckBox25
-				.setText(json.get("5").toString().split("/")[1].split("\"")[0]);
+		if (json.get("1").toString().indexOf("/") != -1) {
+			jCheckBox21.setForeground(Color.BLACK);
+			jCheckBox21.setText(json.get("1").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox21.setForeground(Color.RED);
+			jCheckBox21.setText(json.get("1").toString().split("\"")[1]);
+		}
+		if (json.get("2").toString().indexOf("/") != -1) {
+			jCheckBox22.setForeground(Color.BLACK);
+			jCheckBox22.setText(json.get("2").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox22.setForeground(Color.RED);
+			jCheckBox22.setText(json.get("2").toString().split("\"")[1]);
+		}
+		if (json.get("3").toString().indexOf("/") != -1) {
+			jCheckBox23.setForeground(Color.BLACK);
+			jCheckBox23.setText(json.get("3").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox23.setForeground(Color.RED);
+			jCheckBox23.setText(json.get("3").toString().split("\"")[1]);
+		}
+		if (json.get("4").toString().indexOf("/") != -1) {
+			jCheckBox24.setForeground(Color.BLACK);
+			jCheckBox24.setText(json.get("4").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox24.setForeground(Color.RED);
+			jCheckBox24.setText(json.get("4").toString().split("\"")[1]);
+		}
+		if (json.get("5").toString().indexOf("/") != -1) {
+			jCheckBox25.setForeground(Color.BLACK);
+			jCheckBox25.setText(json.get("5").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox25.setForeground(Color.RED);
+			jCheckBox25.setText(json.get("5").toString().split("\"")[1]);
+		}
 		jLabel40.setText(json.get("fchrdate").toString().split("\\(", 2)[0]
 				.split("\"")[1]);
 		json = data_stu.get(5).getAsJsonObject();
-		jCheckBox26
-				.setText(json.get("1").toString().split("/")[1].split("\"")[0]);
-		jCheckBox27
-				.setText(json.get("2").toString().split("/")[1].split("\"")[0]);
-		jCheckBox28
-				.setText(json.get("3").toString().split("/")[1].split("\"")[0]);
-		jCheckBox29
-				.setText(json.get("4").toString().split("/")[1].split("\"")[0]);
-		jCheckBox30
-				.setText(json.get("5").toString().split("/")[1].split("\"")[0]);
+		if (json.get("1").toString().indexOf("/") != -1) {
+			jCheckBox26.setForeground(Color.BLACK);
+			jCheckBox26.setText(json.get("1").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox26.setForeground(Color.RED);
+			jCheckBox26.setText(json.get("1").toString().split("\"")[1]);
+		}
+		if (json.get("2").toString().indexOf("/") != -1) {
+			jCheckBox27.setForeground(Color.BLACK);
+			jCheckBox27.setText(json.get("2").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox27.setForeground(Color.RED);
+			jCheckBox27.setText(json.get("2").toString().split("\"")[1]);
+		}
+		if (json.get("3").toString().indexOf("/") != -1) {
+			jCheckBox28.setForeground(Color.BLACK);
+			jCheckBox28.setText(json.get("3").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox28.setForeground(Color.RED);
+			jCheckBox28.setText(json.get("3").toString().split("\"")[1]);
+		}
+		if (json.get("4").toString().indexOf("/") != -1) {
+			jCheckBox29.setForeground(Color.BLACK);
+			jCheckBox29.setText(json.get("4").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox29.setForeground(Color.RED);
+			jCheckBox29.setText(json.get("4").toString().split("\"")[1]);
+		}
+		if (json.get("5").toString().indexOf("/") != -1) {
+			jCheckBox30.setForeground(Color.BLACK);
+			jCheckBox30.setText(json.get("5").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox30.setForeground(Color.RED);
+			jCheckBox30.setText(json.get("5").toString().split("\"")[1]);
+		}
 		jLabel41.setText(json.get("fchrdate").toString().split("\\(", 2)[0]
 				.split("\"")[1]);
 		json = data_stu.get(6).getAsJsonObject();
-		jCheckBox31
-				.setText(json.get("1").toString().split("/")[1].split("\"")[0]);
-		jCheckBox32
-				.setText(json.get("2").toString().split("/")[1].split("\"")[0]);
-		jCheckBox33
-				.setText(json.get("3").toString().split("/")[1].split("\"")[0]);
-		jCheckBox34
-				.setText(json.get("4").toString().split("/")[1].split("\"")[0]);
-		jCheckBox35
-				.setText(json.get("5").toString().split("/")[1].split("\"")[0]);
+		if (json.get("1").toString().indexOf("/") != -1) {
+			jCheckBox31.setForeground(Color.BLACK);
+			jCheckBox31.setText(json.get("1").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox31.setForeground(Color.RED);
+			jCheckBox31.setText(json.get("1").toString().split("\"")[1]);
+		}
+		if (json.get("2").toString().indexOf("/") != -1) {
+			jCheckBox32.setForeground(Color.BLACK);
+			jCheckBox32.setText(json.get("2").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox32.setForeground(Color.RED);
+			jCheckBox32.setText(json.get("2").toString().split("\"")[1]);
+		}
+		if (json.get("3").toString().indexOf("/") != -1) {
+			jCheckBox33.setForeground(Color.BLACK);
+			jCheckBox33.setText(json.get("3").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox33.setForeground(Color.RED);
+			jCheckBox33.setText(json.get("3").toString().split("\"")[1]);
+		}
+		if (json.get("4").toString().indexOf("/") != -1) {
+			jCheckBox34.setForeground(Color.BLACK);
+			jCheckBox34.setText(json.get("4").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox34.setForeground(Color.RED);
+			jCheckBox34.setText(json.get("4").toString().split("\"")[1]);
+		}
+		if (json.get("5").toString().indexOf("/") != -1) {
+			jCheckBox35.setForeground(Color.BLACK);
+			jCheckBox35.setText(json.get("5").toString().split("/")[1]
+					.split("\"")[0]);
+		} else {
+			jCheckBox35.setForeground(Color.RED);
+			jCheckBox35.setText(json.get("5").toString().split("\"")[1]);
+		}
 		jLabel42.setText(json.get("fchrdate").toString().split("\\(", 2)[0]
 				.split("\"")[1]);
 	}
@@ -1540,157 +1834,157 @@ public class _Main extends javax.swing.JFrame {
 		int num = 0;
 		if (jCheckBox1.isSelected()) {
 			array[num] = "date=" + jLabel36.getText().toString()
-					+ "&start=7&end=9";
+					+ "&start=7&end=9&trainsessionid=01";
 			num++;
 		}
 		if (jCheckBox2.isSelected()) {
 			array[num] = "date=" + jLabel36.getText().toString()
-					+ "&start=9&end=13";
+					+ "&start=9&end=13&trainsessionid=02";
 			num++;
 		}
 		if (jCheckBox3.isSelected()) {
 			array[num] = "date=" + jLabel36.getText().toString()
-					+ "&start=13&end=17";
+					+ "&start=13&end=17&trainsessionid=03";
 			num++;
 		}
 		if (jCheckBox4.isSelected()) {
 			array[num] = "date=" + jLabel36.getText().toString()
-					+ "&start=17&end=19";
+					+ "&start=17&end=19&trainsessionid=04";
 			num++;
 		}
 		if (jCheckBox5.isSelected()) {
 			array[num] = "date=" + jLabel36.getText().toString()
-					+ "&start=19&end=21";
+					+ "&start=19&end=21&trainsessionid=05";
 			num++;
 		}
 		// 2
 		if (jCheckBox6.isSelected()) {
 			array[num] = "date=" + jLabel37.getText().toString()
-					+ "&start=7&end=9";
+					+ "&start=7&end=9&trainsessionid=01";
 			num++;
 		}
 		if (jCheckBox7.isSelected()) {
 			array[num] = "date=" + jLabel37.getText().toString()
-					+ "&start=9&end=13";
+					+ "&start=9&end=13&trainsessionid=02";
 			num++;
 		}
 		if (jCheckBox8.isSelected()) {
 			array[num] = "date=" + jLabel37.getText().toString()
-					+ "&start=13&end=17";
+					+ "&start=13&end=17&trainsessionid=03";
 			num++;
 		}
 		if (jCheckBox9.isSelected()) {
 			array[num] = "date=" + jLabel37.getText().toString()
-					+ "&start=17&end=19";
+					+ "&start=17&end=19&trainsessionid=04";
 			num++;
 		}
 		if (jCheckBox10.isSelected()) {
 			array[num] = "date=" + jLabel37.getText().toString()
-					+ "&start=19&end=21";
+					+ "&start=19&end=21&trainsessionid=05";
 			num++;
 		}
 		// 3
 		if (jCheckBox11.isSelected()) {
 			array[num] = "date=" + jLabel38.getText().toString()
-					+ "&start=7&end=9";
+					+ "&start=7&end=9&trainsessionid=01";
 			num++;
 		}
 		if (jCheckBox12.isSelected()) {
 			array[num] = "date=" + jLabel38.getText().toString()
-					+ "&start=9&end=13";
+					+ "&start=9&end=13&trainsessionid=02";
 			num++;
 		}
 		if (jCheckBox13.isSelected()) {
 			array[num] = "date=" + jLabel38.getText().toString()
-					+ "&start=13&end=17";
+					+ "&start=13&end=17&trainsessionid=03";
 			num++;
 		}
 		if (jCheckBox14.isSelected()) {
 			array[num] = "date=" + jLabel38.getText().toString()
-					+ "&start=17&end=19";
+					+ "&start=17&end=19&trainsessionid=04";
 			num++;
 		}
 		if (jCheckBox15.isSelected()) {
 			array[num] = "date=" + jLabel38.getText().toString()
-					+ "&start=19&end=21";
+					+ "&start=19&end=21&trainsessionid=05";
 			num++;
 		}
 		// 4
 		if (jCheckBox16.isSelected()) {
 			array[num] = "date=" + jLabel39.getText().toString()
-					+ "&start=7&end=9";
+					+ "&start=7&end=9&trainsessionid=01";
 			num++;
 		}
 		if (jCheckBox17.isSelected()) {
 			array[num] = "date=" + jLabel39.getText().toString()
-					+ "&start=9&end=13";
+					+ "&start=9&end=13&trainsessionid=02";
 			num++;
 		}
 		if (jCheckBox18.isSelected()) {
 			array[num] = "date=" + jLabel39.getText().toString()
-					+ "&start=13&end=17";
+					+ "&start=13&end=17&trainsessionid=03";
 			num++;
 		}
 		if (jCheckBox19.isSelected()) {
 			array[num] = "date=" + jLabel39.getText().toString()
-					+ "&start=17&end=19";
+					+ "&start=17&end=19&trainsessionid=04";
 			num++;
 		}
 		if (jCheckBox20.isSelected()) {
 			array[num] = "date=" + jLabel39.getText().toString()
-					+ "&start=19&end=21";
+					+ "&start=19&end=21&trainsessionid=05";
 			num++;
 		}
 		// 5
 		if (jCheckBox21.isSelected()) {
 			array[num] = "date=" + jLabel40.getText().toString()
-					+ "&start=7&end=9";
+					+ "&start=7&end=9&trainsessionid=01";
 			num++;
 		}
 		if (jCheckBox22.isSelected()) {
 			array[num] = "date=" + jLabel40.getText().toString()
-					+ "&start=9&end=13";
+					+ "&start=9&end=13&trainsessionid=02";
 			num++;
 		}
 		if (jCheckBox23.isSelected()) {
 			array[num] = "date=" + jLabel40.getText().toString()
-					+ "&start=13&end=17";
+					+ "&start=13&end=17&trainsessionid=03";
 			num++;
 		}
 		if (jCheckBox24.isSelected()) {
 			array[num] = "date=" + jLabel40.getText().toString()
-					+ "&start=17&end=19";
+					+ "&start=17&end=19&trainsessionid=04";
 			num++;
 		}
 		if (jCheckBox25.isSelected()) {
 			array[num] = "date=" + jLabel40.getText().toString()
-					+ "&start=19&end=21";
+					+ "&start=19&end=21&trainsessionid=05";
 			num++;
 		}
 		// 5
 		if (jCheckBox26.isSelected()) {
 			array[num] = "date=" + jLabel41.getText().toString()
-					+ "&start=7&end=9";
+					+ "&start=7&end=9&trainsessionid=01";
 			num++;
 		}
 		if (jCheckBox27.isSelected()) {
 			array[num] = "date=" + jLabel41.getText().toString()
-					+ "&start=9&end=13";
+					+ "&start=9&end=13&trainsessionid=02";
 			num++;
 		}
 		if (jCheckBox28.isSelected()) {
 			array[num] = "date=" + jLabel41.getText().toString()
-					+ "&start=13&end=17";
+					+ "&start=13&end=17&trainsessionid=03";
 			num++;
 		}
 		if (jCheckBox29.isSelected()) {
 			array[num] = "date=" + jLabel41.getText().toString()
-					+ "&start=17&end=19";
+					+ "&start=17&end=19&trainsessionid=04";
 			num++;
 		}
 		if (jCheckBox30.isSelected()) {
 			array[num] = "date=" + jLabel41.getText().toString()
-					+ "&start=19&end=21";
+					+ "&start=19&end=21&trainsessionid=05";
 			num++;
 		}
 		// 6
@@ -1773,6 +2067,7 @@ public class _Main extends javax.swing.JFrame {
 	private javax.swing.JCheckBox jCheckBox7;
 	private javax.swing.JCheckBox jCheckBox8;
 	private javax.swing.JCheckBox jCheckBox9;
+	private javax.swing.JComboBox jComboBox1;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel10;
 	private javax.swing.JLabel jLabel11;
@@ -1818,5 +2113,6 @@ public class _Main extends javax.swing.JFrame {
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JPanel jPanel2;
 	private javax.swing.JTabbedPane jTabbedPane1;
+	private javax.swing.JTextField jTextField1;
 	// End of variables declaration//GEN-END:variables
 }
