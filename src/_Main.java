@@ -36,6 +36,7 @@ public class _Main extends javax.swing.JFrame {
 		_JSON json_jbxx = new _JSON(post._GetStatus().toString());
 		data_jbxx = json_jbxx._GetJsonData();
 		json = data_jbxx.get(0).getAsJsonObject();
+		main._mPhone = json.get("fchrMobile").toString().split("\"")[1];
 		jLabel7.setText(json.get("fchrStudentName").toString());
 		jLabel8.setText(main._userid);
 		jLabel9.setText(json.get("fdtmRegistrationDate").toString());
@@ -82,10 +83,9 @@ public class _Main extends javax.swing.JFrame {
 				.get("fchrRegistrationID").toString().split("\"")[1];
 		main._trainpriceid = data_train.get(0).getAsJsonObject()
 				.get("fchrTrainPriceID").toString().split("\"")[1];
-		System.out.println(main._bmnum);
 	}
 
-	// GEN-BEGIN:initComponents
+	//GEN-BEGIN:initComponents
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">
 	private void initComponents() {
 
@@ -173,6 +173,8 @@ public class _Main extends javax.swing.JFrame {
 		jButton2 = new javax.swing.JButton();
 		jComboBox1 = new javax.swing.JComboBox();
 		jTextField1 = new javax.swing.JTextField();
+		jButton3 = new javax.swing.JButton();
+		jPanel3 = new javax.swing.JPanel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("gisman");
@@ -741,7 +743,7 @@ public class _Main extends javax.swing.JFrame {
 			}
 		});
 
-		jButton2.setText("jButton2");
+		jButton2.setText("\u7ea6\u8f66");
 		jButton2.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton2ActionPerformed(evt);
@@ -750,9 +752,13 @@ public class _Main extends javax.swing.JFrame {
 
 		jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] {
 				"散段", "模拟机", "综合训练" }));
-		jComboBox1.setName("null");
 
-		jTextField1.setText("jTextField1");
+		jButton3.setText("\u53d6\u6d88");
+		jButton3.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jButton3ActionPerformed(evt);
+			}
+		});
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(
 				jPanel1);
@@ -1100,32 +1106,41 @@ public class _Main extends javax.swing.JFrame {
 												jPanel1Layout
 														.createParallelGroup(
 																javax.swing.GroupLayout.Alignment.LEADING)
+														.addComponent(
+																jTextField1,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																99,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
 														.addGroup(
 																jPanel1Layout
 																		.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.LEADING,
+																				javax.swing.GroupLayout.Alignment.TRAILING,
 																				false)
 																		.addComponent(
+																				jButton3,
+																				javax.swing.GroupLayout.Alignment.LEADING,
+																				0,
+																				0,
+																				Short.MAX_VALUE)
+																		.addComponent(
 																				jButton2,
+																				javax.swing.GroupLayout.Alignment.LEADING,
 																				0,
 																				0,
 																				Short.MAX_VALUE)
 																		.addComponent(
 																				jButton1,
+																				javax.swing.GroupLayout.Alignment.LEADING,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				javax.swing.GroupLayout.DEFAULT_SIZE,
 																				Short.MAX_VALUE)
 																		.addComponent(
 																				jComboBox1,
+																				javax.swing.GroupLayout.Alignment.LEADING,
 																				0,
 																				66,
-																				Short.MAX_VALUE))
-														.addComponent(
-																jTextField1,
-																javax.swing.GroupLayout.PREFERRED_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.PREFERRED_SIZE))
-										.addContainerGap(53, Short.MAX_VALUE)));
+																				Short.MAX_VALUE)))
+										.addContainerGap(21, Short.MAX_VALUE)));
 		jPanel1Layout
 				.setVerticalGroup(jPanel1Layout
 						.createParallelGroup(
@@ -1433,15 +1448,23 @@ public class _Main extends javax.swing.JFrame {
 																				javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 																		.addComponent(
 																				jButton2)
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+																				11,
+																				Short.MAX_VALUE)
+																		.addComponent(
+																				jButton3)
 																		.addGap(18,
 																				18,
 																				18)
 																		.addComponent(
 																				jTextField1,
 																				javax.swing.GroupLayout.PREFERRED_SIZE,
-																				138,
+																				121,
 																				javax.swing.GroupLayout.PREFERRED_SIZE)
-																		.addContainerGap())))
+																		.addGap(40,
+																				40,
+																				40))))
 						.addGroup(
 								javax.swing.GroupLayout.Alignment.CENTER,
 								jPanel1Layout
@@ -1454,6 +1477,18 @@ public class _Main extends javax.swing.JFrame {
 										.addGap(118, 118, 118)));
 
 		jTabbedPane1.addTab("\u81ea\u52a8\u7ea6\u8f66", jPanel1);
+
+		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(
+				jPanel3);
+		jPanel3.setLayout(jPanel3Layout);
+		jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(
+				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 436,
+				Short.MAX_VALUE));
+		jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(
+				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 305,
+				Short.MAX_VALUE));
+
+		jTabbedPane1.addTab("\u8f6f\u4ef6\u8bbe\u7f6e", jPanel3);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
 				getContentPane());
@@ -1469,7 +1504,31 @@ public class _Main extends javax.swing.JFrame {
 
 		pack();
 	}// </editor-fold>
-		// GEN-END:initComponents
+	//GEN-END:initComponents
+
+	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+		// TODO add your handling code here:
+		_GetDate();
+		for (int i = 0; i < count; i++) {
+			System.out.println(array[i]);
+			post = new _POST("http://111.204.39.58:8080/Ajax/StuHdl.ashx",
+					"loginType=2&method=yueche&stuid=" + main._userid
+							+ "&lesstypeid=02&id=1&bmnum=" + main._bmnum
+							+ "&trainpriceid=" + main._trainpriceid
+							+ "&ycmethod=03&cartypeid=01&carid=&ReleaseCarID=&"
+							+ array[i] + main._sessionid, main._cookie, 0);
+			post.run();
+			System.out.println("loginType=2&method=yueche&stuid="
+					+ main._userid + "&lesstypeid=02&id=1&bmnum=" + main._bmnum
+					+ "&trainpriceid=" + main._trainpriceid
+					+ "&ycmethod=03&cartypeid=01&carid=&ReleaseCarID=&"
+					+ array[i] + main._sessionid);
+			System.out.println(post._GetStatus());
+			if (post._GetStatus() == "success")
+				jTextField1
+						.setText(jTextField1.getText() + array[i] + "预约成功\n");
+		}
+	}
 
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
@@ -2028,10 +2087,11 @@ public class _Main extends javax.swing.JFrame {
 		});
 	}
 
-	// GEN-BEGIN:variables
+	//GEN-BEGIN:variables
 	// Variables declaration - do not modify
 	private javax.swing.JButton jButton1;
 	private javax.swing.JButton jButton2;
+	private javax.swing.JButton jButton3;
 	private javax.swing.JCheckBox jCheckBox1;
 	private javax.swing.JCheckBox jCheckBox10;
 	private javax.swing.JCheckBox jCheckBox11;
@@ -2112,6 +2172,7 @@ public class _Main extends javax.swing.JFrame {
 	private javax.swing.JLabel jLabel9;
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JPanel jPanel2;
+	private javax.swing.JPanel jPanel3;
 	private javax.swing.JTabbedPane jTabbedPane1;
 	private javax.swing.JTextField jTextField1;
 	// End of variables declaration//GEN-END:variables
